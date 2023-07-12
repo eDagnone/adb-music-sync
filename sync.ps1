@@ -1,7 +1,7 @@
 # Define the paths to the music folders on the phone and computer
 $phoneMusicPath = "/storage/emulated/0/music"
 $computerMusicPath = "C:\Users\$ENV:Username\Music"
-
+$OutputEncoding = [Console]::InputEncoding = [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
 # Use ADB to get the list of files in the phone music folder
 $phoneMusicFiles = & ./adb.exe shell "cd $phoneMusicPath && stat -c %Y%n *.*"
 # Use PowerShell to get the list of files in the computer music folder
@@ -69,6 +69,7 @@ foreach ($computerFile in $computerMusicFiles) {
     }
 }
 #>
+
 Write-Host "`nDO NOT UNPLUG YOUR DEVICE"
 while ($processes | Where-Object { !$_.HasExited }) {
     Start-Sleep -Milliseconds 20
