@@ -5,7 +5,7 @@ import os
 import concurrent.futures
 
 PHONE_MUSIC_PATH = "/storage/emulated/0/music"
-PC_MUSIC_PATH = os.path.expanduser('~') + "/music"
+PC_MUSIC_PATH = os.path.expanduser('~') + "/Music"
 
 def get_adb_device():
     subprocess.call(['adb', 'start-server'])
