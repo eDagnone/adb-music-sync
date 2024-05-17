@@ -86,6 +86,7 @@ pc_files = get_files_info(PC_MUSIC_PATH)
 phone_dict = {file.name: file for file in phone_files}
 pc_dict = {file.name: file for file in pc_files}
 
+#Multithreading is 15% faster, for some reason.
 with concurrent.futures.ThreadPoolExecutor() as executor:
     futures = []
     
@@ -115,9 +116,7 @@ with concurrent.futures.ThreadPoolExecutor() as executor:
 
     print("Waiting for sync. Do not unplug.")
     concurrent.futures.wait(futures)
+
+device.shell(f"mediastore -W update {PHONE_MUSIC_PATH}")
 subprocess.call(['adb', 'kill-server'])
 print("Done!")
-
-#Multithreading is 15% faster, for some reason.
-
-#TODO: ADB issue rescan. Something about dev tools, Media-Provider
