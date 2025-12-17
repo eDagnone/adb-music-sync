@@ -53,7 +53,7 @@ def get_files_info(directory_path):
     for filename in os.listdir(directory_path):
         filepath = os.path.join(directory_path, filename)
 
-        if os.path.isfile(filepath):
+        if os.path.isfile(filepath) and filepath.endswith('.flac'):
             size = os.path.getsize(filepath)
             last_modified = os.path.getmtime(filepath)
 
@@ -79,7 +79,7 @@ def push_file(device, filename, reason):
 
 
 device = get_adb_device()
-songs_stat = device.shell(f"cd {PHONE_MUSIC_PATH} && stat -c '%Y%s %n' *.*")
+songs_stat = device.shell(f"cd {PHONE_MUSIC_PATH} && stat -c '%Y%s %n' *.flac")
 phone_files = parse_adb_output(songs_stat)
 pc_files = get_files_info(PC_MUSIC_PATH)
 
